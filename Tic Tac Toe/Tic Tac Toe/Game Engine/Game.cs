@@ -11,7 +11,7 @@ namespace Tic_Tac_Toe.Game_Engine
         public void PlayGame()
         {
             Board playground = new Board();
-            playground.DrawBoard();
+           
 
             bool Winner = false;
             
@@ -20,19 +20,26 @@ namespace Tic_Tac_Toe.Game_Engine
                 bool playerOneTurn = false;
                 bool playerTwoTurn = false;
 
-                Console.WriteLine("Player One turn");
+                
+                
                 do
                 {
-                    playerOneTurn = new PlayerTurn().Turn(playground.board, "O");
+                    Console.WriteLine("Player One turn");
+                    Console.WriteLine();
+                    playerOneTurn = new PlayerTurn().Turn(playground, "O");
+                   
                 } while (playerOneTurn == false);
 
-                Console.WriteLine("Player Two turn");
+                
                 do
                 {
-                    playerOneTurn = new PlayerTurn().Turn(playground.board, "X");
+                    Console.WriteLine("Player Two turn");
+                    Console.WriteLine();
+                    playerTwoTurn = new PlayerTurn().Turn(playground, "X");
+                  
                 } while (playerTwoTurn == false);
 
-
+               
 
 
 
