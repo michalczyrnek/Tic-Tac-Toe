@@ -6,20 +6,45 @@ namespace Tic_Tac_Toe.Tools
 {
     public class CheckCoordinates
     {
-         public bool Check(string[] temp)
+         public bool Check(string[] temp, CellTypes[,] board)
         {
-            bool result = false;
+            if (FormalCorrectness(temp) && IsCellFree(temp,board))
+            {
+                return true;
+            }
+            else return false;
 
-            if (temp[0]=="1"|| temp[0] == "2" || temp[0] == "3")
+
+        }
+
+        public bool FormalCorrectness (string[] temp)
+        {
+           
+
+            if (temp[0] == "1" || temp[0] == "2" || temp[0] == "3")
             {
                 if (temp[1] == "1" || temp[1] == "2" || temp[1] == "3")
                 {
-                     result = true;
+                    return true;
                 }
 
             }
-            return result;
+            return false;
 
         }
+
+        public bool IsCellFree (string[] temp, CellTypes[,] board)
+        {
+            int coordOne = Int32.Parse(temp[0]) - 1;
+            int coordTwo = Int32.Parse(temp[1]) - 1;
+
+            if (board[coordOne, coordTwo] == CellTypes.Empty)
+            {
+                return true;
+            }
+
+            else return false;
+        }
+
     }
 }

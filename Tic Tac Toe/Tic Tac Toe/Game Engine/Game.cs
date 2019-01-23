@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tic_Tac_Toe.Tools;
 
 namespace Tic_Tac_Toe.Game_Engine
 {
@@ -9,8 +10,33 @@ namespace Tic_Tac_Toe.Game_Engine
 
         public void PlayGame()
         {
-            Console.WriteLine("Give me coordinates (1-3 for column and 1-3 for row, for example 1,1)");
-            string coordinates = Console.ReadLine();
+            Board playground = new Board();
+            playground.DrawBoard();
+
+            bool Winner = false;
+            
+            do
+            {
+                bool playerOneTurn = false;
+                bool playerTwoTurn = false;
+
+                Console.WriteLine("Player One turn");
+                do
+                {
+                    playerOneTurn = new PlayerTurn().Turn(playground.board, "O");
+                } while (playerOneTurn == false);
+
+                Console.WriteLine("Player Two turn");
+                do
+                {
+                    playerOneTurn = new PlayerTurn().Turn(playground.board, "X");
+                } while (playerTwoTurn == false);
+
+
+
+
+
+            } while (Winner == false);
         }
 
     }
