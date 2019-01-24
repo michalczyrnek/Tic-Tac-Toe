@@ -1,5 +1,4 @@
-﻿using Moq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Tic_Tac_Toe.Game_Engine;
 using Tic_Tac_Toe.Tools;
 
@@ -50,31 +49,6 @@ namespace TicTacToeTests
             Assert.IsTrue(result);
 
         }
-
-        [Test]
-        public void FalseWhenWrongCoordinates()
-        {
-            //given
-
-            PlayerTurn pt = new PlayerTurn();
-            string input = "aaaa,1";
-            Board board = new Board();
-
-            //when
-
-            bool result = pt.MakeMove(board.board, input, "O");
-
-            //then
-            
-            Assert.IsFalse(result);
-
-        }
-
-
-
-
-
-
 
     }
 }

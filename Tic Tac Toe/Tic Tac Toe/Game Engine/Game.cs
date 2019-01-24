@@ -11,9 +11,9 @@ namespace Tic_Tac_Toe.Game_Engine
         public void PlayGame()
         {
             Board playground = new Board();
-           
+            WinnerChecker iswinner = new WinnerChecker();
 
-            bool Winner = false;
+            
             
             do
             {
@@ -30,6 +30,13 @@ namespace Tic_Tac_Toe.Game_Engine
                    
                 } while (playerOneTurn == false);
 
+                if (iswinner.IsWinner(playground))
+                {
+                    Console.WriteLine("Player One Win");
+                    playground.DrawBoard();
+                    break;
+                }
+
                 
                 do
                 {
@@ -39,11 +46,16 @@ namespace Tic_Tac_Toe.Game_Engine
                   
                 } while (playerTwoTurn == false);
 
-               
+                if (iswinner.IsWinner(playground))
+                {
+                    Console.WriteLine("Player Two Win");
+                    playground.DrawBoard();
+                    break;
+                }
 
 
 
-            } while (Winner == false);
+            } while (true);
         }
 
     }
