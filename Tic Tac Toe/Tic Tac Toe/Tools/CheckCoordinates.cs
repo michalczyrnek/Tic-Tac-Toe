@@ -19,17 +19,23 @@ namespace Tic_Tac_Toe.Tools
 
         public bool FormalCorrectness (string[] temp)
         {
-           
+            try {
 
-            if (temp[0] == "1" || temp[0] == "2" || temp[0] == "3")
-            {
-                if (temp[1] == "1" || temp[1] == "2" || temp[1] == "3")
+                if (temp[0] == "1" || temp[0] == "2" || temp[0] == "3")
                 {
-                    return true;
+                    if ((temp.Length == 2) && (temp[1] == "1" || temp[1] == "2" || temp[1] == "3"))
+                    {
+                        return true;
+                    }
+
                 }
+                return false;
+
+            } catch (IndexOutOfRangeException)
+            {
+                return false;
 
             }
-            return false;
 
         }
 

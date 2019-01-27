@@ -46,7 +46,7 @@ namespace Tic_Tac_Toe.Game_Engine
 
             else
             {
-                Console.WriteLine("Wrong coordinates");
+                Console.WriteLine("Wrong coordinates. Press any key.");
                 Console.ReadKey();
                 return false;
             }
