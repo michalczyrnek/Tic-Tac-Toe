@@ -30,7 +30,7 @@ namespace Tic_Tac_Toe.Game_Engine
                    
                 } while (playerOneTurn == false);
 
-                if (iswinner.IsWinner(playground))
+                if (iswinner.IsWinner(playground.board))
                 {
                     Console.WriteLine("Player One Win");
                     playground.DrawBoard();
@@ -46,7 +46,7 @@ namespace Tic_Tac_Toe.Game_Engine
                   
                 } while (playerTwoTurn == false);
 
-                if (iswinner.IsWinner(playground))
+                if (iswinner.IsWinner(playground.board))
                 {
                     Console.WriteLine("Player Two Win");
                     playground.DrawBoard();

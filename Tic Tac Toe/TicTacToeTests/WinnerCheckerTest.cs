@@ -1,6 +1,8 @@
 ﻿
+using Moq;
 using NUnit.Framework;
 using System.Reflection;
+using Tic_Tac_Toe.End_Game_Conditions;
 using Tic_Tac_Toe.Game_Engine;
 using Tic_Tac_Toe.Tools;
 
@@ -20,7 +22,7 @@ namespace TicTacToeTests
         }
 
         [Test]
-        public void IsCheckRowsGiveTrueForFirst()
+        public void IsCheckRowsGiveTrueForFirstRow()
         {
 
             //given
@@ -30,14 +32,14 @@ namespace TicTacToeTests
 
 
             //when
-            bool result =  winnerchecker.CheckRows(board);
+            bool result = winnerchecker.FindWinner(new CheckRows(), board.board);
 
             //then
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void IsCheckRowsGiveTrueForSecond()
+        public void IsCheckRowsGiveTrueForSecondRow()
         {
 
             //given
@@ -47,7 +49,7 @@ namespace TicTacToeTests
 
 
             //when
-            bool result = winnerchecker.CheckRows(board);
+            bool result = winnerchecker.FindWinner(new CheckRows(), board.board);
 
             //then
             Assert.IsTrue(result);
@@ -64,7 +66,7 @@ namespace TicTacToeTests
 
 
             //when
-            bool result = winnerchecker.CheckRows(board);
+            bool result = winnerchecker.FindWinner(new CheckRows(), board.board);
 
             //then
             Assert.IsTrue(result);
@@ -81,7 +83,7 @@ namespace TicTacToeTests
 
 
             //when
-            bool result = winnerchecker.CheckColumns(board);
+            bool result = winnerchecker.FindWinner(new CheckColumns(), board.board);
 
             //then
             Assert.IsTrue(result);
@@ -98,7 +100,7 @@ namespace TicTacToeTests
 
 
             //when
-            bool result = winnerchecker.CheckColumns(board);
+            bool result = winnerchecker.FindWinner(new CheckColumns(), board.board);
 
             //then
             Assert.IsTrue(result);
@@ -115,14 +117,14 @@ namespace TicTacToeTests
 
 
             //when
-            bool result = winnerchecker.CheckColumns(board);
+            bool result = winnerchecker.FindWinner(new CheckColumns(), board.board);
 
             //then
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void IsChecFirstCrossGiveTrue()
+        public void IsCheckFirstCrossGiveTrue()
         {
 
             //given
@@ -132,14 +134,14 @@ namespace TicTacToeTests
 
 
             //when
-            bool result = winnerchecker.CheckFirstCross(board);
+            bool result = winnerchecker.FindWinner(new CheckFirstDiagonally(), board.board);
 
             //then
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void IsChecSecondCrossGiveTrue()
+        public void IsCheckSecondCrossGiveTrue()
         {
 
             //given
@@ -149,12 +151,57 @@ namespace TicTacToeTests
 
 
             //when
-            bool result = winnerchecker.CheckSecondCross(board);
+            bool result = winnerchecker.FindWinner(new CheckSecondDiagonally(), board.board);
 
             //then
             Assert.IsTrue(result);
         }
 
+        [Test]
+        public void IsFindWinnerReturnFalse()
+        {
+
+            //given
+            Mock<IGameEndChecker> checker = new Mock<IGameEndChecker>();
+            checker.Setup(i => i.CheckCellStatus(board.board)).Returns(false);
+
+            //when
+            bool result = winnerchecker.FindWinner(checker.Object, board.board);
+
+            //then
+            Assert.IsFalse(result);
+
+
+        }
+        [Test]
+        public void IsWinnerTrue()
+        {
+            //given
+            board.board[0, 2] = (CellTypes.O);
+            board.board[1, 2] = CellTypes.O;
+            board.board[2, 2] = CellTypes.O;
+
+            //when
+            bool result = winnerchecker.IsWinner(board.board);
+
+            //then
+            Assert.IsTrue(result);
+
+
+
+        }
+        public void IsWinnerFalse()
+        {
+          
+            //when
+            bool result = winnerchecker.IsWinner(board.board);
+
+            //then
+            Assert.IsFalse(result);
+
+
+
+        }
 
     }
 }
