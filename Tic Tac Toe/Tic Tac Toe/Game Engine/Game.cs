@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Tic_Tac_Toe.End_Game;
 using Tic_Tac_Toe.Tools;
 
 namespace Tic_Tac_Toe.Game_Engine
@@ -11,7 +12,8 @@ namespace Tic_Tac_Toe.Game_Engine
         public void PlayGame()
         {
             Board playground = new Board();
-            WinnerChecker iswinner = new WinnerChecker();
+            EndGameChecker isWinner = new EndGameCheckerFabric().CreateStandardGameWinConditions();
+            EndGameChecker isNoOneWins = new EndGameCheckerFabric().CreateNoOneWinEnding();
 
             
             
@@ -30,9 +32,16 @@ namespace Tic_Tac_Toe.Game_Engine
                    
                 } while (playerOneTurn == false);
 
-                if (iswinner.IsWinner(playground.board))
+                if (isWinner.IsGameEnd(playground.board))
                 {
                     Console.WriteLine("Player One Win");
+                    playground.DrawBoard();
+                    break;
+                }
+
+                if (isNoOneWins.IsGameEnd(playground.board))
+                {
+                    Console.WriteLine("No one wins");
                     playground.DrawBoard();
                     break;
                 }
@@ -46,7 +55,7 @@ namespace Tic_Tac_Toe.Game_Engine
                   
                 } while (playerTwoTurn == false);
 
-                if (iswinner.IsWinner(playground.board))
+                if (isWinner.IsGameEnd(playground.board))
                 {
                     Console.WriteLine("Player Two Win");
                     playground.DrawBoard();

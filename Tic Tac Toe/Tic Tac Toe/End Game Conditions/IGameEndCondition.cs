@@ -5,10 +5,10 @@ using Tic_Tac_Toe.Tools;
 
 namespace Tic_Tac_Toe.End_Game_Conditions
 {
-    public interface IGameEndChecker
+    public interface IGameEndCondition
     {
 
-         bool CheckCellStatus(CellTypes[,] board);
+         bool CheckCellsStatus(CellTypes[,] board);
 
     }
 }

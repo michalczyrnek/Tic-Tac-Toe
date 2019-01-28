@@ -5,10 +5,10 @@ using Tic_Tac_Toe.Tools;
 
 namespace Tic_Tac_Toe.End_Game_Conditions
 {
-    public class CheckFirstDiagonally : IGameEndChecker
+    public class CheckFirstDiagonally : IGameEndCondition
     {
 
-        public bool CheckCellStatus(CellTypes[,] board)
+        public bool CheckCellsStatus(CellTypes[,] board)
         {
             CellTypes match = board[0, 0];
             int counter = 0;

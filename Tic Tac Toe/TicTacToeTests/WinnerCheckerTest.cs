@@ -1,23 +1,21 @@
 ﻿
-using Moq;
 using NUnit.Framework;
-using System.Reflection;
 using Tic_Tac_Toe.End_Game_Conditions;
 using Tic_Tac_Toe.Game_Engine;
 using Tic_Tac_Toe.Tools;
 
 namespace TicTacToeTests
 {
-    public class WinnerCheckerTest
+    public class EmdGameCheckerTest
     {
         private Board board;
-        private WinnerChecker winnerchecker;
+        private EndGameChecker endGameChecker;
 
         [SetUp]
         public void Setup()
         {
             board = new Board();
-            winnerchecker = new WinnerChecker();
+            endGameChecker = new EndGameChecker();
 
         }
 
@@ -27,12 +25,13 @@ namespace TicTacToeTests
 
             //given
             board.board[0, 0] = (CellTypes.O);
-            board.board[0, 1]= CellTypes.O;
+            board.board[0, 1] = CellTypes.O;
             board.board[0, 2] = CellTypes.O;
+            endGameChecker.AddEndGameCondition(new CheckRows());
 
 
             //when
-            bool result = winnerchecker.FindWinner(new CheckRows(), board.board);
+            bool result = endGameChecker.IsGameEnd(board.board);
 
             //then
             Assert.IsTrue(result);
@@ -46,11 +45,11 @@ namespace TicTacToeTests
             board.board[1, 0] = (CellTypes.O);
             board.board[1, 1] = CellTypes.O;
             board.board[1, 2] = CellTypes.O;
+            endGameChecker.AddEndGameCondition(new CheckRows());
 
 
             //when
-            bool result = winnerchecker.FindWinner(new CheckRows(), board.board);
-
+            bool result = endGameChecker.IsGameEnd(board.board);
             //then
             Assert.IsTrue(result);
         }
@@ -63,10 +62,11 @@ namespace TicTacToeTests
             board.board[2, 0] = (CellTypes.O);
             board.board[2, 1] = CellTypes.O;
             board.board[2, 2] = CellTypes.O;
+            endGameChecker.AddEndGameCondition(new CheckRows());
 
 
             //when
-            bool result = winnerchecker.FindWinner(new CheckRows(), board.board);
+            bool result = endGameChecker.IsGameEnd(board.board);
 
             //then
             Assert.IsTrue(result);
@@ -80,10 +80,11 @@ namespace TicTacToeTests
             board.board[0, 0] = (CellTypes.O);
             board.board[1, 0] = CellTypes.O;
             board.board[2, 0] = CellTypes.O;
+            endGameChecker.AddEndGameCondition(new CheckColumns());
 
 
             //when
-            bool result = winnerchecker.FindWinner(new CheckColumns(), board.board);
+            bool result = endGameChecker.IsGameEnd(board.board);
 
             //then
             Assert.IsTrue(result);
@@ -97,10 +98,10 @@ namespace TicTacToeTests
             board.board[0, 1] = (CellTypes.O);
             board.board[1, 1] = CellTypes.O;
             board.board[2, 1] = CellTypes.O;
-
+            endGameChecker.AddEndGameCondition(new CheckColumns());
 
             //when
-            bool result = winnerchecker.FindWinner(new CheckColumns(), board.board);
+            bool result = endGameChecker.IsGameEnd(board.board);
 
             //then
             Assert.IsTrue(result);
@@ -114,94 +115,92 @@ namespace TicTacToeTests
             board.board[0, 2] = (CellTypes.O);
             board.board[1, 2] = CellTypes.O;
             board.board[2, 2] = CellTypes.O;
-
+            endGameChecker.AddEndGameCondition(new CheckColumns());
 
             //when
-            bool result = winnerchecker.FindWinner(new CheckColumns(), board.board);
+            bool result = endGameChecker.IsGameEnd(board.board);
+
 
             //then
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void IsCheckFirstCrossGiveTrue()
+        public void IsCheckFirstDiagonallyGiveTrue()
         {
 
             //given
             board.board[0, 0] = (CellTypes.O);
             board.board[1, 1] = CellTypes.O;
             board.board[2, 2] = CellTypes.O;
-
+            endGameChecker.AddEndGameCondition(new CheckFirstDiagonally());
 
             //when
-            bool result = winnerchecker.FindWinner(new CheckFirstDiagonally(), board.board);
+            bool result = endGameChecker.IsGameEnd(board.board);
+
 
             //then
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void IsCheckSecondCrossGiveTrue()
+        public void IsCheckSecondDiagonallyGiveTrue()
         {
 
             //given
             board.board[0, 2] = (CellTypes.O);
             board.board[1, 1] = CellTypes.O;
             board.board[2, 0] = CellTypes.O;
-
+            endGameChecker.AddEndGameCondition(new CheckSecondDiagonally());
 
             //when
-            bool result = winnerchecker.FindWinner(new CheckSecondDiagonally(), board.board);
+            bool result = endGameChecker.IsGameEnd(board.board);
+
+
 
             //then
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void IsFindWinnerReturnFalse()
-        {
-
-            //given
-            Mock<IGameEndChecker> checker = new Mock<IGameEndChecker>();
-            checker.Setup(i => i.CheckCellStatus(board.board)).Returns(false);
-
-            //when
-            bool result = winnerchecker.FindWinner(checker.Object, board.board);
-
-            //then
-            Assert.IsFalse(result);
-
-
-        }
-        [Test]
-        public void IsWinnerTrue()
+        public void BoardFull()
         {
             //given
-            board.board[0, 2] = (CellTypes.O);
-            board.board[1, 2] = CellTypes.O;
-            board.board[2, 2] = CellTypes.O;
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    board.board[i, j] = CellTypes.O;
+
+                }
+
+            }
+
+            endGameChecker.AddEndGameCondition(new CheckIsBoardFull());
 
             //when
-            bool result = winnerchecker.IsWinner(board.board);
+            bool result = endGameChecker.IsGameEnd(board.board);
 
             //then
             Assert.IsTrue(result);
 
-
-
         }
-        public void IsWinnerFalse()
+
+        [Test]
+        public void BoardHasFreeCells()
         {
-          
+
+
+
+            endGameChecker.AddEndGameCondition(new CheckIsBoardFull());
+
             //when
-            bool result = winnerchecker.IsWinner(board.board);
+            bool result = endGameChecker.IsGameEnd(board.board);
 
             //then
             Assert.IsFalse(result);
 
 
-
         }
-
     }
 }

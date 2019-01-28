@@ -5,9 +5,9 @@ using Tic_Tac_Toe.Tools;
 
 namespace Tic_Tac_Toe.End_Game_Conditions
 {
-    public class CheckRows : IGameEndChecker
+    public class CheckRows : IGameEndCondition
     {
-        public bool CheckCellStatus(CellTypes[,] board)
+        public bool CheckCellsStatus(CellTypes[,] board)
         {
             for (int i = 0; i < 3; i++)
             {
