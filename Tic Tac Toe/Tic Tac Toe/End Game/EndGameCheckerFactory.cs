@@ -6,7 +6,7 @@ using Tic_Tac_Toe.Game_Engine;
 
 namespace Tic_Tac_Toe.End_Game
 {
-    public class EndGameCheckerFabric
+    public class EndGameCheckerFactory
     {
         public EndGameChecker CreateStandardGameWinConditions()
         {
