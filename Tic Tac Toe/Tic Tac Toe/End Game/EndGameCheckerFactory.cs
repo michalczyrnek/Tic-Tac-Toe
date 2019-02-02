@@ -6,9 +6,9 @@ using Tic_Tac_Toe.Game_Engine;
 
 namespace Tic_Tac_Toe.End_Game
 {
-    public class EndGameCheckerFactory
+    public static class EndGameCheckerFactory
     {
-        public EndGameChecker CreateStandardGameWinConditions()
+        public static EndGameChecker CreateStandardGameWinConditions()
         {
             EndGameChecker checker = new EndGameChecker();
             checker.AddEndGameCondition(new CheckRows());
@@ -21,7 +21,7 @@ namespace Tic_Tac_Toe.End_Game
 
         }
 
-        public EndGameChecker CreateNoOneWinEnding()
+        public static EndGameChecker CreateNoOneWinEnding()
         {
             EndGameChecker checker = new EndGameChecker();
             checker.AddEndGameCondition(new CheckIsBoardFull());

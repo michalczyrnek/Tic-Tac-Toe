@@ -6,7 +6,7 @@ using Tic_Tac_Toe.Tools;
 
 namespace TicTacToeTests
 {
-    public class EmdGameCheckerTest
+    public class EndGameCheckerTest
     {
         private Board board;
         private EndGameChecker endGameChecker;

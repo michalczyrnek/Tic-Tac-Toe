@@ -12,8 +12,8 @@ namespace Tic_Tac_Toe.Game_Engine
         public void PlayGame()
         {
             Board playground = new Board();
-            EndGameChecker isWinner = new EndGameCheckerFactory().CreateStandardGameWinConditions();
-            EndGameChecker isNoOneWins = new EndGameCheckerFactory().CreateNoOneWinEnding();
+            EndGameChecker isWinner = EndGameCheckerFactory.CreateStandardGameWinConditions();
+            EndGameChecker isNoOneWins = EndGameCheckerFactory.CreateNoOneWinEnding();
 
             
             
